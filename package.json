@@ -3,8 +3,13 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "serve": "vue-cli-service serve",
-    "build": "vue-cli-service build"
+    "dev:client": "cross-env vue-cli-service serve",
+    "dev:server": "cross-env WEBPACK_TARGET=node node server.js",
+    "dev": "concurrently \"npm run dev:client\" \"npm run dev:server\"",
+    "build:client": "cross-env RUN_ENV=prod vue-cli-service build",
+    "build:server": "cross-env RUN_ENV=prod WEBPACK_TARGET=node vue-cli-service build",
+    "build": "npm run build:server && npm run build:client",
+    "build:dev": "npm run build && node buildServer.js"
   },
   "dependencies": {
     "core-js": "^3.6.5",
@@ -15,6 +20,15 @@
     "@vue/cli-plugin-babel": "~4.5.0",
     "@vue/cli-plugin-router": "~4.5.0",
     "@vue/cli-service": "~4.5.0",
-    "vue-template-compiler": "^2.6.11"
+    "axios": "^0.21.1",
+    "concurrently": "^6.1.0",
+    "cross-env": "^7.0.3",
+    "lodash": "^4.17.21",
+    "lodash.merge": "^4.6.2",
+    "memory-fs": "^0.5.0",
+    "serve-favicon": "^2.5.0",
+    "vue-server-renderer": "^2.6.12",
+    "vue-template-compiler": "^2.6.11",
+    "webpack-node-externals": "^3.0.0"
   }
 }
